@@ -1,9 +1,8 @@
 const router = require('express').Router()
-
+//added and rendering new view
 router.get('/new', (req, res) => {
   res.render('places/new')
 })
-
 
 router.get('/', (req, res) => {
   let places = [{
