@@ -38,3 +38,13 @@ nav a:hover {
   color: pink;
   text-decoration: none;
 }
+
+img {
+  width: 70%;
+  height: auto;
+}
+
+.chiaShake {
+  width: 70%;
+  height: auto;
+}
