@@ -11,7 +11,6 @@ app.use(express.static('public'))
 
 app.use(express.urlencoded({ extended: true }))
 
-
 // Controllers & Routes
 app.use('/places', require('./controllers/places'))
 
