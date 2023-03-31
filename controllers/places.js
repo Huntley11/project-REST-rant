@@ -7,20 +7,20 @@ router.get('/new', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   db.place_schema.findById(req.params.id)
-  .then((place) => { res.render('places/edit', { place }) })
-  .catch((err) => {
-    console.log(err)
-    res.render('error404')
-  })
+    .then((place) => { res.render('places/edit', { place }) })
+    .catch((err) => {
+      console.log(err)
+      res.render('error404')
+    })
 })
 
 router.get('/:id', (req, res) => {
   db.place_schema.findById(req.params.id)
-  .then((place) => { res.render('places/show', { place }) })
-  .catch((err) => {
-    console.log(err)
-    res.render('error404')
-  })
+    .then((place) => { res.render('places/show', { place }) })
+    .catch((err) => {
+      console.log(err)
+      res.render('error404')
+    })
 })
 
 router.delete('/:id', (req, res) => {
@@ -55,7 +55,15 @@ router.post('/', (req, res) => {
   db.place_schema.create(req.body)
     .then(() => { res.redirect('/places') })
     .catch((err) => {
-      console.log(err)
+      if (err.name === 'ValidationError') {
+        let message = "Validation Error: "
+        for (var field in err.errors) {
+          message += `${field} was ${err.errors[field].value} - `
+          message += `${err.errors[field].message}`
+        }
+        console.log("Validation Error Message", message)
+        res.render('places/new', { message })
+      }
       res.render('error404')
     })
 })
