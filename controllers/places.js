@@ -7,7 +7,11 @@ router.get('/new', (req, res) => {
 
 router.get('/:id/edit', (req, res) => {
   db.place_schema.findById(req.params.id)
-    .then((place) => { res.render('places/edit', { place }) })
+    .populate('comments')
+    .then((place) => { 
+      console.log(place.comments)
+      res.render('places/edit', { place }) 
+    })
     .catch((err) => {
       console.log(err)
       res.render('error404')

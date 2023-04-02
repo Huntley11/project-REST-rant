@@ -8,3 +8,4 @@ mongoose.connect(process.env.MONGO_URI, {
 .catch((err) => { console.log(err) })
 
 module.exports.place_schema = require('./places')
+module.exports.Comment = require('./comment')
