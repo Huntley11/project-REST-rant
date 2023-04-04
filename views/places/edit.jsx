@@ -46,8 +46,8 @@ function Edit(data) {
                                 className="form-control"
                                 id="state"
                                 name="state"
-                                type="text" 
-                                value={data.place.state}/>
+                                type="text"
+                                value={data.place.state} />
                         </div>
 
                         <div className="form-group col-sm-6">
@@ -57,13 +57,26 @@ function Edit(data) {
                                 id="cuisines"
                                 name="cuisines"
                                 type="text"
-                                required 
-                                value={data.place.cuisines}/>
+                                required
+                                value={data.place.cuisines} />
+                        </div>
+
+                        <div className='form-group col-sm-6'>
+                            <label htmlFor='founded'>Founded</label>
+                            <input
+                                className='form-control'
+                                id='founded'
+                                name='founded'
+                                value={data.place.founded}
+                            />
                         </div>
                         <br />
                     </div>
-                    <br/>
-                    <input className="btn btn-primary" type="submit" value="Submit Changes" />
+                    <br />
+                    <input 
+                    className="btn btn-primary" 
+                    type="submit" 
+                    value="Submit Changes" />
                 </form>
             </main>
         </Default>

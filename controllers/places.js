@@ -1,16 +1,6 @@
 const router = require('express').Router()
 let db = require('../models')
 
-
-router.get('/data/destroy', (req, res) => {
-    db.place_schema.deleteMany()
-        .then(() => { res.render('places/index', {  }) })
-        .catch((err) => {
-            console.log(err)
-            res.render('error404')
-        })
-})
-
 router.get('/new', (req, res) => {
     res.render('places/new')
 })
@@ -21,7 +11,7 @@ router.get('/:id/edit', (req, res) => {
         .catch((err) => {
             console.log(err)
             res.render('error404')
-        })    
+        })
 })
 
 router.get('/:id/comment', (req, res) => {
@@ -30,13 +20,13 @@ router.get('/:id/comment', (req, res) => {
         .catch((err) => {
             console.log(err)
             res.render('error404')
-        })    
+        })
 })
 
 router.post('/:id/comment', (req, res) => {
     req.body.rant = req.body.rant === "on"
     console.log(req.body)
-    
+
     db.place_schema.findById(req.params.id)
         .then((place) => {
             db.comment_schema.create(req.body)
@@ -61,7 +51,7 @@ router.post('/:id/comment', (req, res) => {
 router.get('/:id', (req, res) => {
     db.place_schema.findById(req.params.id)
         .populate('comments')
-        .then((place) => { 
+        .then((place) => {
             res.render('places/show', { place })
         })
         .catch((err) => {
@@ -86,7 +76,7 @@ router.put('/:id', (req, res) => {
             console.log(err)
             res.render('error404')
         })
-    
+
 })
 
 router.get('/', (req, res) => {
@@ -114,5 +104,20 @@ router.post('/', (req, res) => {
             res.render('error404')
         })
 })
+
+router.delete('/:pid/comment/:cid', (req, res) => {
+    db.place_schema.findById(req.params.pid)
+        .then((place) => {
+            db.comment_schema.findByIdAndDelete(req.params.cid)
+                .then(() => {
+                    res.redirect(`/places/${req.params.pid}`)
+                })
+        })
+        .catch(err => {
+            console.log('err', err)
+            res.render('error404')
+        })
+})
+
 
 module.exports = router
